@@ -1,3 +1,5 @@
+package taskapplication.src.main.java.com.personalproject.taskapplication;
+
 public class Task {
     private String taskName = "";
     private double totalTime;
