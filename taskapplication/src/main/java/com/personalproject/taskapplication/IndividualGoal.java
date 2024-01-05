@@ -1,6 +1,6 @@
 package taskapplication.src.main.java.com.personalproject.taskapplication;
 
-public class Task {
+public class IndividualGoal {
     private String taskName = "";
     private double totalTime;
     private long startTime;
@@ -8,7 +8,7 @@ public class Task {
 
     // if adding in weekly goals / time stamps - LocalDate might be useful
 
-    public Task(String initialName){
+    public IndividualGoal(String initialName){
         this.taskName = initialName;
         this.totalTime = 0;
     }
