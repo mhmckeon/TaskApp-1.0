@@ -11,11 +11,11 @@ public class Task {
         this.totalTime = 0;
     }
 
-    public void setName(String name) {
-        taskName = name;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
-    public String getName(){
+    public String getTaskName() {
         return taskName;
     }
     
