@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
 
 
 public class DatabaseQueryer {
@@ -16,9 +17,22 @@ public class DatabaseQueryer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        try (Statement statement = this.conn.createStatement()) {
+            String createTasksTable = "CREATE TABLE IF NOT EXISTS tasks (" +
+                    "task_id INT PRIMARY KEY," +
+                    "task_name VARCHAR(255) NOT NULL" +
+                    ");";
+            statement.executeUpdate(createTasksTable);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    
+    public void insertGoal(String goalNameString){
+        String sql = "INSERT INTO tasks(task_id, task_name) VALUES (?,?)";
+
+
+    }    
 
     public void closeConnection(){
         try {
