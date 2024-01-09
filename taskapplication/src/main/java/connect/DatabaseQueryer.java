@@ -9,13 +9,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.sql.Timestamp;
-import java.util.Calendar;
-
 
 import com.personalproject.taskapplication.IndividualGoal;
 
 import java.sql.ResultSet;
-
 
 public class DatabaseQueryer {
     private Connection conn;
@@ -39,10 +36,10 @@ public class DatabaseQueryer {
         try (Statement statement = this.conn.createStatement()) {
             String createTasksTable = "CREATE TABLE IF NOT EXISTS task_completions (" +
                     "completion_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "task_id INT,"+
+                    "task_id INT," +
                     "completion_length INT NOT NULL," +
-                    "completion_datetime DATETIME NOT NULL,"+
-                    "FOREIGN KEY(task_id) REFERENCES tasks(task_id)"+
+                    "completion_datetime DATETIME NOT NULL," +
+                    "FOREIGN KEY(task_id) REFERENCES tasks(task_id)" +
                     ");";
             statement.executeUpdate(createTasksTable);
         } catch (SQLException e) {
@@ -50,46 +47,45 @@ public class DatabaseQueryer {
         }
     }
 
-    public void insertGoal(String goalNameString){
+    public void insertGoal(String goalNameString) {
         String sql = "INSERT INTO tasks(task_name) VALUES (?)";
-        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setString(1, goalNameString);
             pstmt.executeUpdate();
-            
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
 
-    public void insertGoalTime(Integer task_id, double completion_length){
-        
-        String sql = "INSERT INTO task_completions(task_id,completion_length, completion_datetime) VALUES (?,?,?)";
-
-        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
-            pstmt.setInt(1, task_id);
-            pstmt.setDouble(2, completion_length);
-
-            Timestamp currenTimestamp = new Timestamp(System.currentTimeMillis());
-            pstmt.setTimestamp(3, currenTimestamp);
-            pstmt.executeUpdate();
-            
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void deleteGoal(int ID) {
         String sql = "DELETE FROM tasks WHERE task_id = ?";
-        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setInt(1, ID);
             pstmt.executeUpdate();
-            
-        } catch (SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } 
+        }
     }
 
-    public void closeConnection(){
+    public void insertGoalTime(Integer task_id, double completion_length) {
+        String sql = "INSERT INTO task_completions(task_id,completion_length, completion_datetime) VALUES (?,?,?)";
+
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
+            pstmt.setInt(1, task_id);
+            pstmt.setDouble(2, completion_length);
+
+            Timestamp currenTimestamp = new Timestamp(System.currentTimeMillis());
+            pstmt.setTimestamp(3, currenTimestamp);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void closeConnection() {
         try {
             conn.close();
             System.out.println("Connection closed.");
@@ -97,10 +93,9 @@ public class DatabaseQueryer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
-    public ArrayList<Map<Integer,String>> getGoalList(){
+    public ArrayList<Map<Integer, String>> getGoalList() {
         String sql = "SELECT task_id, task_name FROM tasks";
         ArrayList<Map<Integer, String>> goalList = new ArrayList<>();
 
@@ -108,12 +103,12 @@ public class DatabaseQueryer {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
-            while (rs.next()){
+            while (rs.next()) {
                 int taskID = rs.getInt("task_id");
                 String taskName = rs.getString("task_name");
 
-                Map<Integer,String> goalMap = new HashMap<>();
-                goalMap.put(taskID,taskName);
+                Map<Integer, String> goalMap = new HashMap<>();
+                goalMap.put(taskID, taskName);
                 goalList.add(goalMap);
             }
 
@@ -125,15 +120,13 @@ public class DatabaseQueryer {
 
     }
 
-
     public static void main(String[] args) {
         DatabaseQueryer newDatabase = new DatabaseQueryer();
         newDatabase.insertGoal("finishProject");
         newDatabase.getGoalList();
         newDatabase.deleteGoal(1);
-        newDatabase.insertGoalTime(2,23);
+        newDatabase.insertGoalTime(2, 23);
         newDatabase.closeConnection();
 
     }
 }
-    
