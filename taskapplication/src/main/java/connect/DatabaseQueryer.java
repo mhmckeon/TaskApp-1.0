@@ -2,6 +2,7 @@ package connect;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ public class DatabaseQueryer {
         }
         try (Statement statement = this.conn.createStatement()) {
             String createTasksTable = "CREATE TABLE IF NOT EXISTS tasks (" +
-                    "task_id INT PRIMARY KEY," +
+                    "task_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "task_name VARCHAR(255) NOT NULL" +
                     ");";
             statement.executeUpdate(createTasksTable);
@@ -29,10 +30,26 @@ public class DatabaseQueryer {
     }
 
     public void insertGoal(String goalNameString){
-        String sql = "INSERT INTO tasks(task_id, task_name) VALUES (?,?)";
-
-
+        String sql = "INSERT INTO tasks(task_name) VALUES (?)";
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
+            pstmt.setString(1, goalNameString);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }    
+
+    public void deleteGoal(int ID) {
+        String sql = "DELETE FROM tasks WHERE task_id = ?";
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
+            pstmt.setInt(1, ID);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        } 
+    }
 
     public void closeConnection(){
         try {
@@ -47,7 +64,10 @@ public class DatabaseQueryer {
 
     public static void main(String[] args) {
         DatabaseQueryer newDatabase = new DatabaseQueryer();
+        newDatabase.insertGoal("finishProject");
+        newDatabase.deleteGoal(1);
         newDatabase.closeConnection();
+
     }
 }
     
