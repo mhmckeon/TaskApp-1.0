@@ -34,6 +34,17 @@ public class DatabaseQueryer {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        try (Statement statement = this.conn.createStatement()) {
+            String createTasksTable = "CREATE TABLE IF NOT EXISTS task_completions (" +
+                    "completion_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "task_id INT,"+
+                    "completion_length INT NOT NULL," +
+                    "completion_datetime DATETIME NOT NULL"+
+                    ");";
+            statement.executeUpdate(createTasksTable);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void insertGoal(String goalNameString){
