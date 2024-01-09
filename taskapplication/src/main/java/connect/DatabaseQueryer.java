@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 
 import com.personalproject.taskapplication.IndividualGoal;
@@ -39,7 +41,8 @@ public class DatabaseQueryer {
                     "completion_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "task_id INT,"+
                     "completion_length INT NOT NULL," +
-                    "completion_datetime DATETIME NOT NULL"+
+                    "completion_datetime DATETIME NOT NULL,"+
+                    "FOREIGN KEY(task_id) REFERENCES tasks(task_id)"+
                     ");";
             statement.executeUpdate(createTasksTable);
         } catch (SQLException e) {
@@ -56,7 +59,24 @@ public class DatabaseQueryer {
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
-    }    
+    }
+
+    public void insertGoalTime(Integer task_id, double completion_length){
+        
+        String sql = "INSERT INTO task_completions(task_id,completion_length, completion_datetime) VALUES (?,?,?)";
+
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
+            pstmt.setInt(1, task_id);
+            pstmt.setDouble(2, completion_length);
+
+            Timestamp currenTimestamp = new Timestamp(System.currentTimeMillis());
+            pstmt.setTimestamp(3, currenTimestamp);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     public void deleteGoal(int ID) {
         String sql = "DELETE FROM tasks WHERE task_id = ?";
@@ -111,6 +131,7 @@ public class DatabaseQueryer {
         newDatabase.insertGoal("finishProject");
         newDatabase.getGoalList();
         newDatabase.deleteGoal(1);
+        newDatabase.insertGoalTime(2,23);
         newDatabase.closeConnection();
 
     }
