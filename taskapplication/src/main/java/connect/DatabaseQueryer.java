@@ -5,6 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
+
+import com.personalproject.taskapplication.IndividualGoal;
+
 import java.sql.ResultSet;
 
 
@@ -62,9 +69,36 @@ public class DatabaseQueryer {
 
     }
 
+    public ArrayList<Map<Integer,String>> getGoalList(){
+        String sql = "SELECT task_id, task_name FROM tasks";
+        ArrayList<Map<Integer, String>> goalList = new ArrayList<>();
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()){
+                int taskID = rs.getInt("task_id");
+                String taskName = rs.getString("task_name");
+
+                Map<Integer,String> goalMap = new HashMap<>();
+                goalMap.put(taskID,taskName);
+                goalList.add(goalMap);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return goalList;
+
+    }
+
+
     public static void main(String[] args) {
         DatabaseQueryer newDatabase = new DatabaseQueryer();
         newDatabase.insertGoal("finishProject");
+        newDatabase.getGoalList();
         newDatabase.deleteGoal(1);
         newDatabase.closeConnection();
 
