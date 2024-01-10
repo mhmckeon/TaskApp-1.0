@@ -1,4 +1,5 @@
 package taskapplication.src.main.java.com.personalproject.taskapplication;
+
 public class Application {
     public static void main(String[] args){
         IndividualGoal newTask = new IndividualGoal("Task 1");

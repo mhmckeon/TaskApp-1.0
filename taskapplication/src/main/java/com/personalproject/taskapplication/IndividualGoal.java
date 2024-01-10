@@ -1,16 +1,20 @@
-package taskapplication.src.main.java.com.personalproject.taskapplication;
+package com.personalproject.taskapplication;
 
 public class IndividualGoal {
     private String taskName = "";
+    private Integer goalID = 0;
     private double totalTime;
     private long startTime;
     private long finishTime;
 
-    // if adding in weekly goals / time stamps - LocalDate might be useful
-
-    public IndividualGoal(String initialName){
+    public IndividualGoal(Integer tempGoalID, String initialName){
+        this.goalID = tempGoalID;
         this.taskName = initialName;
         this.totalTime = 0;
+    }
+
+    public Integer getGoalID() {
+        return goalID;
     }
 
     public void setTaskName(String taskName) {
@@ -25,8 +29,9 @@ public class IndividualGoal {
         startTime = System.nanoTime();
     }
 
-    public void finish() {
+    public double finish() {
         finishTime = System.nanoTime();
+        return (double) (finishTime - startTime);
     }
 
     public void addToTotalTime() {

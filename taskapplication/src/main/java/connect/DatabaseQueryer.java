@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.sql.Timestamp;
-
-import com.personalproject.taskapplication.IndividualGoal;
-
 import java.sql.ResultSet;
 
 public class DatabaseQueryer {
@@ -120,13 +117,12 @@ public class DatabaseQueryer {
 
     }
 
-    public static void main(String[] args) {
-        DatabaseQueryer newDatabase = new DatabaseQueryer();
-        newDatabase.insertGoal("finishProject");
-        newDatabase.getGoalList();
-        newDatabase.deleteGoal(1);
-        newDatabase.insertGoalTime(2, 23);
-        newDatabase.closeConnection();
-
-    }
+    // public static void main(String[] args) {
+    //     DatabaseQueryer newDatabase = new DatabaseQueryer();
+    //     newDatabase.insertGoal("finishProject");
+    //     newDatabase.getGoalList();
+    //     newDatabase.deleteGoal(1);
+    //     newDatabase.insertGoalTime(2, 23);
+    //     newDatabase.closeConnection();
+    // }
 }
