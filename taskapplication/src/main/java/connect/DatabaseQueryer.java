@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.sql.Timestamp;
 import java.sql.ResultSet;
 
+// change deleteGoal to cascade on foreign key update
+
 public class DatabaseQueryer {
     private Connection conn;
 
@@ -60,7 +62,13 @@ public class DatabaseQueryer {
         try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setInt(1, ID);
             pstmt.executeUpdate();
-
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        sql = "DELETE FROM task_completions WHERE task_id = ?";
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
+            pstmt.setInt(1, ID);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -118,7 +126,7 @@ public class DatabaseQueryer {
     }
 
     // public static void main(String[] args) {
-    //     DatabaseQueryer newDatabase = new DatabaseQueryer();
+    //     
     //     newDatabase.insertGoal("finishProject");
     //     newDatabase.getGoalList();
     //     newDatabase.deleteGoal(1);

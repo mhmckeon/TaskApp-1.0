@@ -44,11 +44,11 @@ public class Main {
 
             System.out.println("Start the goal timer: 'S'\tStop the goal timer: 'D'");
             System.out.println("Add a goal: 'add'\tQuit the program: quit");
-            System.out.println("Enter the desired action:");
+            System.out.print("Enter the desired action:");
             inputString = scanner.nextLine();
 
             if (inputString.equals("S")) {
-                System.out.println("Which goal would you like to start?");
+                System.out.print("Which goal would you like to start?");
                 inputInteger = scanner.nextInt();
                 for (Map<Integer, String> keyMap : goalList){
                     if (keyMap.containsKey(inputInteger)) {
@@ -58,9 +58,9 @@ public class Main {
                         activeGoals.add(newGoal);
                         break;
                     }
-                }
+                } 
             } else if (inputString.equals("D")) {
-                System.out.println("Which goal would you like to end?");
+                System.out.print("Which goal would you like to end?");
                 inputInteger = scanner.nextInt();
                 for (IndividualGoal individualGoal : activeGoals) {
                     if (individualGoal.getGoalID() == inputInteger){
@@ -70,7 +70,17 @@ public class Main {
                         break;
                     }
                 }
-            } 
+            } else if (inputString.equals("add")){
+                System.out.print("Enter new goal name: ");
+                String tempString = scanner.nextLine();
+                newDatabase.insertGoal(tempString);
+                goalList = newDatabase.getGoalList();
+            } else if (inputString.equals("del")) {
+                System.out.print("Enter ID of goal to delete: ");
+                Integer toDelInteger = scanner.nextInt();
+                newDatabase.deleteGoal(toDelInteger);
+                goalList = newDatabase.getGoalList();
+            }
 
         }
         System.out.println(activeGoals);
