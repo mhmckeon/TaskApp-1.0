@@ -9,6 +9,7 @@ import taskapplication.src.main.java.com.personalproject.taskapplication.Individ
 
 
 // Need to add deleting goal functionality
+// Need to add adding a goal functionality 
 
 
 public class Main {
@@ -30,12 +31,7 @@ public class Main {
                 System.out.println("GoalID: "+ task_id + "\tGoalName: "+ value);
             }    
         }
-
-        System.out.println("Enter the desired action:");
-        System.out.println("Start the goal timer: 'S'\tStop the goal timer: 'D'");
-        System.out.println("Add a goal: 'add'\tQuit the program: quit");
-        System.out.println("");
-            
+           
 
         while (!(inputString.equals("quit")) ) {
             System.out.println("Goals:");
@@ -69,7 +65,7 @@ public class Main {
                 for (IndividualGoal individualGoal : activeGoals) {
                     if (individualGoal.getGoalID() == inputInteger){
                         Double finishTime = individualGoal.finish();
-                        newDatabase.insertGoalTime(inputInteger, finishTime);
+                        newDatabase.insertGoalTime(individualGoal.getGoalID(), finishTime);
                         activeGoals.remove(individualGoal);
                         break;
                     }
@@ -77,11 +73,10 @@ public class Main {
             } 
 
         }
-
+        System.out.println(activeGoals);
         for (IndividualGoal individualGoal : activeGoals) {
             Double finishTime = individualGoal.finish();
-            newDatabase.insertGoalTime(inputInteger, finishTime);
-            activeGoals.remove(individualGoal);
+            newDatabase.insertGoalTime(individualGoal.getGoalID(), finishTime);
         }
 
         newDatabase.closeConnection();

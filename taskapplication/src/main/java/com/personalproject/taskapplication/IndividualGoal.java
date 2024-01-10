@@ -31,7 +31,7 @@ public class IndividualGoal {
 
     public double finish() {
         finishTime = System.nanoTime();
-        return (double) (finishTime - startTime);
+        return ((double)(finishTime - startTime)/1000000000);
     }
 
     public void addToTotalTime() {
@@ -40,5 +40,11 @@ public class IndividualGoal {
 
     public double getTotalTime() {
         return totalTime;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return (String)(this.goalID + " " + this.taskName);
     }
 }
