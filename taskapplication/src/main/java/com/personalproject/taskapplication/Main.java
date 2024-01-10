@@ -43,7 +43,7 @@ public class Main {
             }
 
             System.out.println("Start the goal timer: 'S'\tStop the goal timer: 'D'");
-            System.out.println("Add a goal: 'add'\tQuit the program: quit");
+            System.out.println("Add a goal: 'add'\tDelete a goal: 'del'\tQuit the program: quit");
             System.out.print("Enter the desired action:");
             inputString = scanner.nextLine();
 
