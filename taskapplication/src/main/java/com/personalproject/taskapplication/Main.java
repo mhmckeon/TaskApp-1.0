@@ -8,10 +8,6 @@ import connect.DatabaseQueryer;
 import taskapplication.src.main.java.com.personalproject.taskapplication.IndividualGoal;
 
 
-// Need to add deleting goal functionality
-// Need to add adding a goal functionality 
-
-
 public class Main {
     public static void main(String[] args) {
         DatabaseQueryer newDatabase = new DatabaseQueryer();

@@ -124,13 +124,4 @@ public class DatabaseQueryer {
         return goalList;
 
     }
-
-    // public static void main(String[] args) {
-    //     
-    //     newDatabase.insertGoal("finishProject");
-    //     newDatabase.getGoalList();
-    //     newDatabase.deleteGoal(1);
-    //     newDatabase.insertGoalTime(2, 23);
-    //     newDatabase.closeConnection();
-    // }
 }
