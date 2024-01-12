@@ -17,16 +17,6 @@ public class Main {
         Integer inputInteger= 0;
         ArrayList<Map<Integer, String>> goalList = newDatabase.getGoalList();
         ArrayList<IndividualGoal> activeGoals = new ArrayList<>();
-
-        
-        // used to loop through all active goals
-        System.out.println("Goals:");
-        for (Map<Integer, String> key : goalList) {
-            for (Integer task_id : key.keySet()) {
-                String value = key.get(task_id);
-                System.out.println("GoalID: "+ task_id + "\tGoalName: "+ value);
-            }    
-        }
            
 
         while (!(inputString.equals("quit")) ) {
@@ -79,7 +69,7 @@ public class Main {
             }
 
         }
-        System.out.println(activeGoals);
+
         for (IndividualGoal individualGoal : activeGoals) {
             Double finishTime = individualGoal.finish();
             newDatabase.insertGoalTime(individualGoal.getGoalID(), finishTime);

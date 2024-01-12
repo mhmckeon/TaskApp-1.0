@@ -18,7 +18,7 @@ public class DatabaseQueryer {
 
     public DatabaseQueryer() {
         try {
-            String url = "jdbc:sqlite:C:/Users/micha/OneDrive/Projects/TaskApp-1.0/taskapplication/src/main/resources/db/goals";
+            String url = "jdbc:sqlite:taskapplication\\src\\main\\resources\\db\\goals";
             this.conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
