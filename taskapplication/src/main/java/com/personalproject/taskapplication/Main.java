@@ -28,9 +28,10 @@ public class Main {
                 }    
             }
 
+            System.out.println();
             System.out.println("Start the goal timer: 'S'\tStop the goal timer: 'D'");
             System.out.println("Add a goal: 'add'\tDelete a goal: 'del'\tQuit the program: quit");
-            System.out.print("Enter the desired action:");
+            System.out.print("Enter the desired action: ");
             inputString = scanner.nextLine();
 
             if (inputString.equals("S")) {
@@ -80,7 +81,8 @@ public class Main {
             Double finishTime = individualGoal.finish();
             newDatabase.insertGoalTime(individualGoal.getGoalID(), finishTime);
         }
-
+        
+        System.out.println();
         newDatabase.closeConnection();
     }
 }
