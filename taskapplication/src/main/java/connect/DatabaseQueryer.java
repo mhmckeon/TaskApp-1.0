@@ -122,6 +122,29 @@ public class DatabaseQueryer {
         }
 
         return goalList;
+    }
 
+    public Double taskTime(Integer task_id){
+        String sql = "SELECT task_id, completion_length FROM task_completions";
+        double totalTime= 0;
+
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                int taskID = rs.getInt("task_id");
+                Double taskLength = rs.getDouble("completion_length");
+
+                if (taskID == task_id) {
+                    totalTime += taskLength;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return totalTime;
     }
 }

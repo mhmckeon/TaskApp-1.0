@@ -24,7 +24,7 @@ public class Main {
             for (Map<Integer, String> key : goalList) {
                 for (Integer task_id : key.keySet()) {
                     String value = key.get(task_id);
-                    System.out.println("GoalID: "+ task_id + "\tGoalName: "+ value);
+                    System.out.println("GoalID: "+ task_id + "\tGoalName: "+ value + "\tTime Spent on goal: " + newDatabase.taskTime(task_id));
                 }    
             }
 
@@ -61,11 +61,17 @@ public class Main {
                 String tempString = scanner.nextLine();
                 newDatabase.insertGoal(tempString);
                 goalList = newDatabase.getGoalList();
+
             } else if (inputString.equals("del")) {
                 System.out.print("Enter ID of goal to delete: ");
                 Integer toDelInteger = scanner.nextInt();
                 newDatabase.deleteGoal(toDelInteger);
                 goalList = newDatabase.getGoalList();
+
+            } else if (inputString.equals("check")){
+                System.out.print("Enter new goal name: ");
+                Integer tempInteger = scanner.nextInt();
+                System.out.print("Goal "+ tempInteger + " has "+newDatabase.taskTime(tempInteger) +" time spent on it.");
             }
 
         }
