@@ -1,4 +1,4 @@
-package taskapplication.src.main.java.com.personalproject.taskapplication;
+package com.personalproject.taskapplication;
 
 import java.util.ArrayList;
 

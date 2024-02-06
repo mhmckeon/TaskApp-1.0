@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import connect.DatabaseQueryer;
-import taskapplication.src.main.java.com.personalproject.taskapplication.IndividualGoal;
 
 
 public class Main {
@@ -84,5 +83,7 @@ public class Main {
         
         System.out.println();
         newDatabase.closeConnection();
+        scanner.close();
     }
+
 }
